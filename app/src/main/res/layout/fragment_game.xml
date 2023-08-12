@@ -129,7 +129,7 @@
         tools:text="6"/>
 
     <TextView
-        android:id="@+id/tv_answers_progress"
+        android:id="@+id/text_view_answers_progress"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/progress_answers"
@@ -148,5 +148,5 @@
         app:layout_constraintBottom_toTopOf="@+id/text_view_option_2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_answers_progress" />
+        app:layout_constraintTop_toBottomOf="@+id/text_view_answers_progress" />
 </androidx.constraintlayout.widget.ConstraintLayout>

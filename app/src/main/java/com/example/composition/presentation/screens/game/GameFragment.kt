@@ -6,8 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.example.composition.R
 import com.example.composition.databinding.FragmentGameBinding
+import com.example.composition.domain.entities.GameResult
+import com.example.composition.domain.entities.GameSettings
 import com.example.composition.domain.entities.Levels
+import com.example.composition.presentation.screens.result.GameResultFragment
 
 class GameFragment : Fragment() {
     private var _binding: FragmentGameBinding? = null
@@ -29,6 +33,25 @@ class GameFragment : Fragment() {
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.textViewSum.setOnClickListener {
+            launchGameResultFragment(GameResult(
+                true,
+                1,
+                1,
+                GameSettings(0,0,0,0))
+            )
+        }
+    }
+
+    private fun launchGameResultFragment(gameResult: GameResult) {
+        requireActivity().supportFragmentManager.beginTransaction()
+            .replace(R.id.main_container, GameResultFragment.newInstance(gameResult))
+            .addToBackStack(null)
+            .commit()
+    }
+
     private fun parseArgs() {
         level = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             requireArguments().getSerializable(KEY_LEVEL, Levels::class.java) as Levels
@@ -44,6 +67,7 @@ class GameFragment : Fragment() {
     }
 
     companion object {
+        const val NAME = "GameFragment"
         private const val KEY_LEVEL = "level"
 
         fun newInstance(level: Levels): GameFragment {
