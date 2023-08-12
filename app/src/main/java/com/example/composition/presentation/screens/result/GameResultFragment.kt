@@ -1,6 +1,5 @@
 package com.example.composition.presentation.screens.result
 
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +10,7 @@ import androidx.fragment.app.FragmentManager
 import com.example.composition.databinding.FragmentGameResultBinding
 import com.example.composition.domain.entities.GameResult
 import com.example.composition.presentation.screens.game.GameFragment
+import com.example.composition.util.parcelable
 
 class GameResultFragment : Fragment() {
     private var _binding: FragmentGameResultBinding? = null
@@ -57,11 +57,8 @@ class GameResultFragment : Fragment() {
     }
 
     private fun parseArgs() {
-        result = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            requireArguments().getSerializable(KEY_RESULT, GameResult::class.java) as GameResult
-        } else {
-            @Suppress("DEPRECATION")
-            requireArguments().getSerializable(KEY_RESULT) as GameResult
+        requireArguments().parcelable<GameResult>(KEY_RESULT)?.let {
+            result = it
         }
     }
 
@@ -76,7 +73,7 @@ class GameResultFragment : Fragment() {
         fun newInstance(gameResult: GameResult): GameResultFragment {
             return GameResultFragment().apply {
                 arguments = Bundle().apply {
-                    putSerializable(KEY_RESULT, gameResult)
+                    putParcelable(KEY_RESULT, gameResult)
                 }
             }
         }

@@ -1,7 +1,7 @@
 package com.example.composition.data
 
 import com.example.composition.domain.entities.GameSettings
-import com.example.composition.domain.entities.Levels
+import com.example.composition.domain.entities.Level
 import com.example.composition.domain.entities.Question
 import com.example.composition.domain.repository.GameRepository
 import kotlin.math.max
@@ -27,9 +27,9 @@ object GameRepositoryImpl : GameRepository {
         return Question(sum, visibleNumber, options.toList())
     }
 
-    override fun getGameSettings(level: Levels): GameSettings {
+    override fun getGameSettings(level: Level): GameSettings {
         return when (level) {
-            Levels.TEST -> {
+            Level.TEST -> {
                 GameSettings(
                     10,
                     3,
@@ -37,7 +37,7 @@ object GameRepositoryImpl : GameRepository {
                     8
                 )
             }
-            Levels.EASY -> {
+            Level.EASY -> {
                 GameSettings(
                     10,
                     10,
@@ -45,7 +45,7 @@ object GameRepositoryImpl : GameRepository {
                     60
                 )
             }
-            Levels.NORMAL -> {
+            Level.NORMAL -> {
                 GameSettings(
                     20,
                     20,
@@ -53,7 +53,7 @@ object GameRepositoryImpl : GameRepository {
                     40
                 )
             }
-            Levels.HARD -> {
+            Level.HARD -> {
                 GameSettings(
                     30,
                     30,

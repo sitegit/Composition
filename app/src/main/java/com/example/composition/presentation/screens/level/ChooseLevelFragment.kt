@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.composition.R
 import com.example.composition.databinding.FragmentChooseLevelBinding
-import com.example.composition.domain.entities.Levels
+import com.example.composition.domain.entities.Level
 import com.example.composition.presentation.screens.game.GameFragment
 
 class ChooseLevelFragment : Fragment() {
@@ -29,23 +29,23 @@ class ChooseLevelFragment : Fragment() {
 
     private fun onClickListeners() {
         binding.buttonLevelTest.setOnClickListener {
-            launchGameFragment(Levels.TEST)
+            launchGameFragment(Level.TEST)
         }
 
         binding.buttonLevelEasy.setOnClickListener {
-            launchGameFragment(Levels.EASY)
+            launchGameFragment(Level.EASY)
         }
 
         binding.buttonLevelNormal.setOnClickListener {
-            launchGameFragment(Levels.NORMAL)
+            launchGameFragment(Level.NORMAL)
         }
 
         binding.buttonLevelHard.setOnClickListener {
-            launchGameFragment(Levels.HARD)
+            launchGameFragment(Level.HARD)
         }
     }
 
-    private fun launchGameFragment(level: Levels) {
+    private fun launchGameFragment(level: Level) {
         requireActivity().supportFragmentManager.beginTransaction()
             .replace(R.id.main_container, GameFragment.newInstance(level))
             .addToBackStack(GameFragment.NAME)

@@ -1,6 +1,5 @@
 package com.example.composition.presentation.screens.game
 
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,15 +9,16 @@ import com.example.composition.R
 import com.example.composition.databinding.FragmentGameBinding
 import com.example.composition.domain.entities.GameResult
 import com.example.composition.domain.entities.GameSettings
-import com.example.composition.domain.entities.Levels
+import com.example.composition.domain.entities.Level
 import com.example.composition.presentation.screens.result.GameResultFragment
+import com.example.composition.util.parcelable
 
 class GameFragment : Fragment() {
     private var _binding: FragmentGameBinding? = null
     private val binding: FragmentGameBinding
         get() = _binding ?: throw RuntimeException("FragmentWelcomeBinding == null")
 
-    private lateinit var level: Levels
+    private lateinit var level: Level
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,11 +53,8 @@ class GameFragment : Fragment() {
     }
 
     private fun parseArgs() {
-        level = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            requireArguments().getSerializable(KEY_LEVEL, Levels::class.java) as Levels
-        } else {
-            @Suppress("DEPRECATION")
-            requireArguments().getSerializable(KEY_LEVEL) as Levels
+        requireArguments().parcelable<Level>(KEY_LEVEL)?.let {
+            level = it
         }
     }
 
@@ -70,10 +67,10 @@ class GameFragment : Fragment() {
         const val NAME = "GameFragment"
         private const val KEY_LEVEL = "level"
 
-        fun newInstance(level: Levels): GameFragment {
+        fun newInstance(level: Level): GameFragment {
             return GameFragment().apply {
                 arguments = Bundle().apply {
-                    putSerializable(KEY_LEVEL, level)
+                    putParcelable(KEY_LEVEL, level)
                 }
             }
         }
