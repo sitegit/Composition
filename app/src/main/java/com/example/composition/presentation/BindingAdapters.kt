@@ -1,11 +1,56 @@
 package com.example.composition.presentation
 
+import android.content.Context
+import android.content.res.ColorStateList
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import com.example.composition.R
 import com.example.composition.domain.entities.GameResult
 
+interface OnOptionClickListener {
+    fun onOptionClick(option: Int)
+}
+
+//GameFragment
+@BindingAdapter("enoughCount")
+fun bindEnoughCount(textView: TextView, goodState: Boolean) {
+    textView.setTextColor(getColorByState(textView.context, goodState))
+}
+
+@BindingAdapter("enoughPercent")
+fun bindEnoughPercent(progressBar: ProgressBar, goodState: Boolean) {
+    val color = getColorByState(progressBar.context, goodState)
+    progressBar.progressTintList = ColorStateList.valueOf(color)
+}
+private fun getColorByState(contenxt: Context, goodState: Boolean): Int {
+    val colorResId = if (goodState) {
+        android.R.color.holo_green_light
+    } else {
+        android.R.color.holo_red_light
+    }
+    return ContextCompat.getColor(contenxt, colorResId)
+}
+
+@BindingAdapter("numberAsText")
+fun bindNumberAsText(textView: TextView, number: Int) {
+    textView.text = number.toString()
+}
+
+@BindingAdapter("onOptionClickListener")
+fun bindOnOptionClickListener(textView: TextView, clickListener: OnOptionClickListener) {
+    textView.setOnClickListener {
+        clickListener.onOptionClick(textView.text.toString().toInt())
+    }
+}
+
+
+
+
+
+//GameResultFragment
 @BindingAdapter("requiredAnswer")
 fun bindRequiredAnswer(textView: TextView, count: Int) {
     textView.text = String.format(
