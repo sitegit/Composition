@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import com.example.composition.R
 import com.example.composition.databinding.FragmentGameResultBinding
 import com.example.composition.domain.entities.GameResult
 import com.example.composition.presentation.screens.game.GameFragment
@@ -35,6 +36,56 @@ class GameResultFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         onClickRetryGameListener()
+
+        setResult()
+    }
+
+    private fun setResult() {
+
+        binding.emojiResult.setImageResource(getImage())
+
+        binding.textViewRequiredAnswers.text = String.format(
+            getString(
+                R.string.required_score,
+                result.gameSettings.minCountOfRightAnswers.toString()
+            )
+        )
+
+        binding.textViewScoreAnswers.text = String.format(
+            getString(
+                R.string.score_answers,
+                result.countOfRightAnswers.toString()
+            )
+        )
+
+        binding.textViewRequiredPercentage.text = String.format(
+            getString(
+                R.string.required_percentage,
+                result.gameSettings.minPercentOfRightAnswers.toString()
+            )
+        )
+
+        binding.textViewScorePercentage.text = String.format(
+            getString(
+                R.string.score_percentage,
+                getPercentOfRightAnswers().toString()
+            )
+        )
+    }
+
+    private fun getPercentOfRightAnswers() = with(result) {
+        if (countOfQuestions == 0) {
+            0
+        } else {
+            ((countOfRightAnswers / countOfQuestions.toDouble()) * 100).toInt()
+        }
+    }
+    private fun getImage(): Int {
+        return if (result.winner) {
+            R.drawable.ic_smile
+        } else {
+            R.drawable.ic_sad
+        }
     }
 
     private fun onClickRetryGameListener() {
