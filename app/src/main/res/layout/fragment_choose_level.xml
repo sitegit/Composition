@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <layout>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context=".presentation.screens.level.ChooseLevelFragment">
+
+    <TextView
+        android:id="@+id/text_view_choose_level"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="@string/choose_level_title"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/button_level_test"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/test_level" />
+
+    <Button
+        android:id="@+id/button_level_easy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@android:color/holo_green_light"
+        android:text="@string/easy_level" />
+
+    <Button
+        android:id="@+id/button_level_normal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@android:color/holo_orange_light"
+        android:text="@string/normal_level" />
+
+    <Button
+        android:id="@+id/button_level_hard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@android:color/holo_red_light"
+        android:text="@string/hard_level" />
+
+</androidx.appcompat.widget.LinearLayoutCompat>
+</layout>
