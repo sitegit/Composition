@@ -12,9 +12,10 @@
 - Продолжайте решать головоломки, чтобы прогрессировать в игре.
   
 ## Технологии
-
+- Kotlin
+- XML
 - Clean Architecture
-- MVVM (Model-View-ViewModel)
+- MVVM
 - Jetpack Navigation
 - Databinding
 
